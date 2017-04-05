@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.sz.kjy.pojo.Emp">
+
+	<select id="listEmp" resultMap="aaa">
+		select `empno`, `ename`, `job`, `mgr`, `hiredate`, `sal`, `comm`, `deptno`
+		from emp
+	</select>
+	<resultMap type="cn.sz.kjy.pojo.Emp" id="aaa">
+		<id property="empno" column="empno"/>
+		<result property="ename" column="ename"/>
+		<result property="job" column="job"/>
+		<result property="mgr" column="mgr"/>
+		<result property="hiredate" column="hiredate"/>
+		<result property="sal" column="sal" />
+		<result property="comm" column="comm" />
+		<association property="dept" column="deptno" select="cn.sz.kjy.pojo.Dept.findDeptByid"></association>
+	</resultMap>
+	<!--分页查询empLimit  -->
+	<select id="empLimit"  parameterType="java.util.Map" resultType="cn.sz.kjy.pojo.Emp">
+	select `empno`, `ename`, `job`, `mgr`, `hiredate`, `sal`, `comm`, `deptno` from emp
+	limit #{start},#{end}
+	</select>
+	
+
+	<!-- 统计总行数 -->
+	<select id="countEmp" resultType="java.lang.Integer">
+		select count(empno) from emp
+	</select>
+
+	<!--ajax查询名字  -->
+	<select id="addEmp" resultType="java.lang.Integer" parameterType="java.lang.String" >
+		select count(ename) from emp where ename=#{ename} 
+	</select>
+</mapper>
