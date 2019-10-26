@@ -21,6 +21,7 @@ public class EmpControl {
 		System.out.println("进入EmpList方法");
 		List<Emp> emplist=empBizImpl.findEmpList();
 		session.setAttribute("emplist", emplist);
+		system.out.print("asdasdasd");
 		return "EmpList";
 	}
 	
